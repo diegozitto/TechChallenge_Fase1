@@ -1,40 +1,57 @@
 package com.restaurant.controller;
 
-
-import com.restaurant.dto.CadastroCliente;
-import com.restaurant.dto.ListagemCliente;
 import com.restaurant.entity.Cliente;
 import com.restaurant.repository.ClienteRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
 @RestController
-@RequestMapping( "/clientes")
+@RequestMapping("/clientes")
+@Tag(name = "Clientes", description = "Operações para Clientes")
 public class ClienteController {
 
     @Autowired
-    private ClienteRepository repository;
+    private ClienteRepository clienteRepository;
 
     @GetMapping
-    public Page<ListagemCliente> listarCliente(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
-        return repository.findAll(paginacao).map(ListagemCliente::new);
+    public ResponseEntity<List<Cliente>> listarTodos() {
+        return ResponseEntity.ok(clienteRepository.findAll());
     }
 
-//    @GetMapping
-//    public List<ListagemCliente> listarCliente(){
-//        return repository.findAll().stream().map(ListagemCliente::new).toList();
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
+        return clienteRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PostMapping
-    @Transactional
-    public void cadastrarCliente(@RequestBody @Valid CadastroCliente dados){
-        repository.save(new Cliente(dados));
+    public ResponseEntity<Cliente> cadastrar(@RequestBody Cliente cliente) {
+        Cliente salvo = clienteRepository.save(cliente);
+        return ResponseEntity.status(201).body(salvo);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+        if (!clienteRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        cliente.setId(id);
+        Cliente atualizado = clienteRepository.save(cliente);
+        return ResponseEntity.ok(atualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        if (!clienteRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        clienteRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

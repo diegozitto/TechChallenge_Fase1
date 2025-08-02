@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class DonoRestaurante {
+public class DonoRestaurante implements Usuario {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +22,28 @@ public class DonoRestaurante {
     private String email;
     private String login;
     private String senha;
-    private Date dataDaUltimaAlteracao;
+    private Date dataUltimaAlteracao;
 
     @Embedded
     private Endereco endereco;
 
+    // Métodos da interface Usuario
+    @Override
+    public Long getId() { return id; }
+    @Override
+    public String getNome() { return nome; }
+    @Override
+    public String getEmail() { return email; }
+    @Override
+    public String getLogin() { return login; }
+    @Override
+    public String getSenha() { return senha; }
+    @Override
+    public Date getDataUltimaAlteracao() { return dataUltimaAlteracao; }
+    @Override
+    public Endereco getEndereco() { return endereco; }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
