@@ -3,9 +3,19 @@ package com.restaurant.entity;
 import java.util.Date;
 
 import jakarta.persistence.Embedded;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Id;
 
+
+@MappedSuperclass
 public abstract class Usuario {
-  protected Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
     protected String nome;
     protected String email;
     protected String login;

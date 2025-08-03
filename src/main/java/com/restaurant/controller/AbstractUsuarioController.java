@@ -1,10 +1,10 @@
-package com.restaurant.controller.base;
+package com.restaurant.controller;
 
 import com.restaurant.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.restaurant.controller.AbstractUsuarioController;
 import java.util.List;
 import java.util.Optional;
 

@@ -12,7 +12,6 @@ public class ClienteController extends AbstractUsuarioController<Cliente> {
     @Autowired
     private ClienteRepository repository;
 
-    @Override
     protected ClienteRepository getRepository() {
         return repository;
     }

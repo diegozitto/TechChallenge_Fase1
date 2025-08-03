@@ -14,6 +14,8 @@ import java.util.Date;
 
 @EqualsAndHashCode(of = "id")
 public class DonoRestaurante extends Usuario {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
  
 }
