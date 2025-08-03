@@ -1,4 +1,4 @@
-FROM maven:3.9.11-amazoncorretto-21-alpine as builder
+FROM maven:3.9.11-amazoncorretto-17-alpine as builder
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY pom.xml
 
 RUN mvn clean package
 
-FROM amazoncorretto:21.0.8-alpine3.22
+FROM amazoncorretto:17.0.16-alpine
 
 WORKDIR /app
 
