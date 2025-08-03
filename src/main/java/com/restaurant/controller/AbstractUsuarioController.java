@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.restaurant.controller.AbstractUsuarioController;
+import com.restaurant.dto.UsuarioResponseDTO;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +17,12 @@ public abstract class AbstractUsuarioController<T extends Usuario> {
     protected abstract JpaRepository<T, Long> getRepository();
 
     @GetMapping
-    public ResponseEntity<List<T>> listarTodos() {
-        return ResponseEntity.ok(getRepository().findAll());
+    public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {
+        List<T> usuarios = getRepository().findAll();
+        List<UsuarioResponseDTO> dtos = usuarios.stream()
+            .map(UsuarioResponseDTO::new)
+            .toList();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")

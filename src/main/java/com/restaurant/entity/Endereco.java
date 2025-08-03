@@ -1,6 +1,4 @@
 package com.restaurant.entity;
-
-import com.restaurant.dto.DadosEndereco;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -22,14 +20,5 @@ public class Endereco {
     private String estado;
     private String cep;
 
-    public Endereco(DadosEndereco dados) {
-        this.rua = dados.logradouro();
-        this.bairro = dados.bairro();
-        this.cidade = dados.cidade();
-        this.numero = dados.numero();
-        this.cep = dados.cep();
-        this.complemento = dados.complemento();
-        this.estado = dados.uf();
 
-    }
 }

@@ -1,9 +1,14 @@
 package com.restaurant.dto;
 
 import com.restaurant.entity.Endereco;
+
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter 
 public class CadastroUsuarioDTO {
     @NotBlank
     private String nome;
@@ -13,6 +18,7 @@ public class CadastroUsuarioDTO {
     private String login;
     @NotBlank
     private String senha;
-    private Endereco endereco;
-    // getters e setters
+    @Valid
+    private DadosEndereco endereco;
+
 }

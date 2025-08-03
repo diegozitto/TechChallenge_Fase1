@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.restaurant.dto.CadastroCliente;
+
+import java.util.Date;
+
+import com.restaurant.dto.CadastroUsuarioDTO;
 
 @Entity(name = "Cliente")
 @Table(name = "Cliente")
@@ -16,12 +19,13 @@ import com.restaurant.dto.CadastroCliente;
 public class Cliente extends Usuario {
 
 
-    public Cliente(CadastroCliente dados) {
-        this.nome = dados.nome();
-        this.email = dados.email();
-        this.login = dados.login();
-        this.senha = dados.senha();
-        this.endereco = new Endereco(dados.endereco());
+    public Cliente(CadastroUsuarioDTO dados) {
+        this.nome = nome;
+        this.email = email;
+        this.login = login;
+        this.senha = senha;
+        this.endereco = endereco;
+        this.dataUltimaAlteracao = new Date();
     }
     
 
