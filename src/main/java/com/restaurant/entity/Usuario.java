@@ -6,10 +6,14 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.Id;
 
 
 @MappedSuperclass
+@Getter
+@Setter
 public abstract class Usuario {
 
     @Id
@@ -24,15 +28,4 @@ public abstract class Usuario {
     @Embedded
     protected Endereco endereco;
 
-    
-    public Long getId() { return id; }
-    public String getNome() { return nome; }
-    public String getEmail() { return email; }
-    public String getLogin() { return login; }
-    public String getSenha() { return senha; }
-    public Date getDataUltimaAlteracao() { return dataUltimaAlteracao; }
-    public Endereco getEndereco() { return endereco; }
-
-    public void setId(Long id) { this.id = id; }
-    public void setSenha(String senha) { this.senha = senha; }
 }

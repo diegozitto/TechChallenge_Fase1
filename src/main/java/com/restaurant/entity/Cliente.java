@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -14,19 +15,19 @@ import com.restaurant.dto.CadastroUsuarioDTO;
 @Table(name = "Cliente")
 @Getter
 @NoArgsConstructor
-
-
+@Setter
 public class Cliente extends Usuario {
 
 
-    public Cliente(CadastroUsuarioDTO dados) {
-        this.nome = nome;
-        this.email = email;
-        this.login = login;
-        this.senha = senha;
-        this.endereco = endereco;
-        this.dataUltimaAlteracao = new Date();
+public Cliente(CadastroUsuarioDTO dados) {
+    this.nome = dados.getNome();
+    this.email = dados.getEmail();
+    this.login = dados.getLogin();
+    this.senha = dados.getSenha();
+    if (dados.getEndereco() != null) {
+        this.endereco = dados.getEndereco().toEntity(); 
     }
-    
+    this.dataUltimaAlteracao = new Date();
+}
 
 }

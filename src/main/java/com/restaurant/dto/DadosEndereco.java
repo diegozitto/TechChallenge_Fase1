@@ -12,6 +12,18 @@ public record DadosEndereco(
         @NotBlank String estado,
         @NotBlank @Pattern(regexp = "\\d{8}") String cep
 ) {
+
+     public com.restaurant.entity.Endereco toEntity() {
+        return new com.restaurant.entity.Endereco(
+            rua,
+            numero,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            cep
+        );
+    }
     public static DadosEndereco fromEntity(com.restaurant.entity.Endereco e) {
         if (e == null) return null;
         return new DadosEndereco(
@@ -24,4 +36,17 @@ public record DadosEndereco(
             e.getCep()
         );
     }
+
+//     public com.restaurant.entity.Endereco toEntity() {
+    
+//         com.restaurant.entity.Endereco endereco = new com.restaurant.entity.Endereco();
+//         endereco.setRua(this.rua());
+//         endereco.setBairro(this.bairro());
+//         endereco.setCidade(this.cidade());
+//         endereco.setNumero(this.numero());    
+//         endereco.setComplemento(this.complemento());
+//         endereco.setEstado(this.estado());
+//         endereco.setCep(this.cep());
+//         return endereco;
+// }
 }
