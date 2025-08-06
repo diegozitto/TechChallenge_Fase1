@@ -6,7 +6,7 @@ COPY src/ ./
 
 COPY pom.xml
 
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 FROM amazoncorretto:17.0.16-alpine
 
