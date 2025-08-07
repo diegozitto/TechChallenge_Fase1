@@ -8,23 +8,27 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+import com.restaurant.dto.CadastroUsuarioDTO;
+
 @Entity(name = "Dono")
 @Table(name = "Dono")
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @EqualsAndHashCode(of = "id")
-public class DonoRestaurante {
+public class DonoRestaurante extends Usuario {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
-    private String email;
-    private String login;
-    private String senha;
-    private Date dataDaUltimaAlteracao;
 
-    @Embedded
-    private Endereco endereco;
+    public DonoRestaurante() {
+        // Default constructor
+    }
 
+    public DonoRestaurante(CadastroUsuarioDTO cadastroUsuarioDTO) {
+        this.nome = nome;
+        this.email = email;
+        this.login = login;
+        this.senha = senha;
+        this.endereco = endereco;
+        this.dataUltimaAlteracao = new Date();
+    }
+ 
 }

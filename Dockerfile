@@ -1,3 +1,4 @@
+#<<<<<<< build/docker
 FROM maven:3.9.11-amazoncorretto-17-alpine as builder
 
 WORKDIR /app
@@ -19,3 +20,15 @@ EXPOSE 8080
 RUN apk add --no-cache shadow && useradd app_user && chmod 700 app.jar && chown app_user:app_user app.jar
 
 CMD [ "java", "-jar", "app.jar" ]
+#=======
+# Dockerfile para aplicação Spring Boot com Java 17 (imagem leve e compatível)
+#FROM openjdk:17-jdk-slim
+
+#WORKDIR /app
+
+#COPY target/*.jar app.jar
+
+#EXPOSE 8080
+
+#ENTRYPOINT ["java", "-jar", "app.jar"]
+#>>>>>>> master
