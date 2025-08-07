@@ -3,10 +3,19 @@ FROM maven:3.9.11-amazoncorretto-17-alpine as builder
 
 WORKDIR /app
 
-COPY src/ ./
+# Copia o pom.xml primeiro para aproveitar o cache das dependências
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+COPY mvnw.cmd .
 
-COPY pom.xml
+# Download das dependências
+RUN mvn dependency:go-offline
 
+# Agora copia o código fonte
+COPY src src
+
+# Compila o projeto
 RUN mvn clean package -DskipTests
 
 FROM amazoncorretto:17.0.16-alpine
@@ -17,7 +26,11 @@ COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-RUN apk add --no-cache shadow && useradd app_user && chmod 700 app.jar && chown app_user:app_user app.jar
+RUN addgroup -S app_group && adduser -S app_user -G app_group \
+    && chown -R app_user:app_group /app \
+    && chmod 500 app.jar
+
+USER app_user
 
 CMD [ "java", "-jar", "app.jar" ]
 #=======

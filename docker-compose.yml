@@ -1,15 +1,49 @@
-version: '3.8'
+#version: '3.8'
+
+#services:
+#  app:
+#    build: .
+#    container_name: restaurantManager_app
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:h2:mem:restaurantManager_app
+#      SPRING_DATASOURCE_USERNAME: sa
+#      SPRING_DATASOURCE_PASSWORD: ""
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+#      SPRING_H2_CONSOLE_ENABLED: "true"
+#    ports:
+#      - "8080:8080"
+
+volumes:
+  pgsql_data:
 
 services:
-  app:
-    build: .
-    container_name: restaurantManager_app
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:h2:mem:restaurantManager_app
-      SPRING_DATASOURCE_USERNAME: sa
-      SPRING_DATASOURCE_PASSWORD: ""
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
-      SPRING_H2_CONSOLE_ENABLED: "true"
+  db:
+    image: postgres:14
+    volumes:
+      - pgsql_data:/var/lib/postgresql/data  
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d techchallege"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     ports:
-      - "8080:8080"
+      - "5432:5432"  
+    environment:
+      - POSTGRES_DB=techchallege
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+  app:
+    depends_on:
+      db:
+        condition: service_healthy
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_CONN_STRING=${DATABASE_CONN_STRING}

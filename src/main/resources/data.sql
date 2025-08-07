@@ -1,35 +1,3 @@
-CREATE TABLE Dono (
-    id BIGINT PRIMARY KEY,
-    nome VARCHAR(255),
-    email VARCHAR(255),
-    login VARCHAR(255),
-    senha VARCHAR(255),
-    dataUltimaAlteracao TIMESTAMP,
-    rua VARCHAR(255),
-    numero VARCHAR(50),
-    complemento VARCHAR(255),
-    bairro VARCHAR(255),
-    cidade VARCHAR(255),
-    estado VARCHAR(50),
-    cep VARCHAR(20)
-);
-
-CREATE TABLE Cliente (
-    id BIGINT PRIMARY KEY,
-    nome VARCHAR(255),
-    email VARCHAR(255),
-    login VARCHAR(255),
-    senha VARCHAR(255),
-    dataUltimaAlteracao TIMESTAMP,
-    rua VARCHAR(255),
-    numero VARCHAR(50),
-    complemento VARCHAR(255),
-    bairro VARCHAR(255),
-    cidade VARCHAR(255),
-    estado VARCHAR(50),
-    cep VARCHAR(20)
-);
-
 INSERT INTO Dono (id, nome, email, login, senha, dataUltimaAlteracao, rua, numero, complemento, bairro, cidade, estado, cep)
 VALUES
 (1, 'Mauricio Borges', 'mauricio@restaurante.com', 'mauricio', 'senha123', CURRENT_TIMESTAMP, 'Rua A', '100', '', 'Centro', 'São Paulo', 'SP', '01000-000'),
