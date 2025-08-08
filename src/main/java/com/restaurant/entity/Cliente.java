@@ -2,11 +2,10 @@ package com.restaurant.entity;
 
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.restaurant.dto.CadastroUsuarioDTO;
 
@@ -20,12 +19,17 @@ public class Cliente extends Usuario {
 
 
     public Cliente(CadastroUsuarioDTO dados) {
-        this.nome = nome;
-        this.email = email;
-        this.login = login;
-        this.senha = senha;
-        this.endereco = endereco;
-        this.dataUltimaAlteracao = new Date();
+        this.nome = dados.getNome();
+        this.email = dados.getEmail();
+        this.login = dados.getLogin();
+        this.senha = dados.getSenha();
+        this.endereco = new Endereco(dados.getEndereco().rua(),
+                                    dados.getEndereco().numero(),
+                                    dados.getEndereco().complemento(),
+                                    dados.getEndereco().bairro(),
+                                    dados.getEndereco().cidade(),
+                                    dados.getEndereco().estado(),
+                                    dados.getEndereco().cep());
     }
     
 

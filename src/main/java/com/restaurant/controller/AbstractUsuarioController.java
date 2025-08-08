@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.restaurant.controller.AbstractUsuarioController;
 import com.restaurant.dto.UsuarioResponseDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +20,13 @@ public abstract class AbstractUsuarioController<T extends Usuario> {
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {
         List<T> usuarios = getRepository().findAll();
-        List<UsuarioResponseDTO> dtos = usuarios.stream()
-            .map(UsuarioResponseDTO::new)
-            .toList();
+        
+        List<UsuarioResponseDTO> dtos = new ArrayList<>();
+
+        Optional.ofNullable(usuarios)
+        .orElse(new ArrayList<>())
+        .forEach(usuario -> dtos.add(new UsuarioResponseDTO(usuario)));
+       
         return ResponseEntity.ok(dtos);
     }
 
