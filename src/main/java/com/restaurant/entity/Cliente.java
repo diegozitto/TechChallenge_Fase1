@@ -30,7 +30,7 @@ public class Cliente extends Usuario {
                                     dados.getEndereco().cidade(),
                                     dados.getEndereco().estado(),
                                     dados.getEndereco().cep());
-    }
-    
+        this.dataUltimaAlteracao = LocalDateTime.now();
+    }    
 
 }
