@@ -2,6 +2,7 @@ package com.restaurant.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;
@@ -21,9 +22,10 @@ public abstract class Usuario {
     protected String email;
     protected String login;
     protected String senha;
-    protected LocalDateTime dataUltimaAlteracao;
     @Embedded
     protected Endereco endereco;
+    @JsonProperty("dataUltimaAlteracao")
+    protected LocalDateTime dataUltimaAlteracao;
 
     
     public Long getId() { return id; }
@@ -32,7 +34,7 @@ public abstract class Usuario {
     public String getLogin() { return login; }
     public String getSenha() { return senha; }
     public Endereco getEndereco() { return endereco; }
-    public LocalDateTime getDataUltimaAlteracao() { return LocalDateTime.now(); }
+    public LocalDateTime getDataUltimaAlteracao() { return dataUltimaAlteracao; }
 
     public void setId(Long id) { this.id = id; }
     public void setSenha(String senha) { this.senha = senha; }

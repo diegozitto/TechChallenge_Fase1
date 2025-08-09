@@ -4,33 +4,33 @@ DROP TABLE IF EXISTS Dono CASCADE;
 
 -- Cria a tabela Dono
 CREATE TABLE Dono (
-    id BIGINT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     login VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    dataUltimaAlteracao TIMESTAMP,
     rua VARCHAR(255),
     numero VARCHAR(50),
     complemento VARCHAR(255),
     bairro VARCHAR(255),
     cidade VARCHAR(255),
     estado VARCHAR(50),
-    cep VARCHAR(20)
+    cep VARCHAR(20),
+    dataUltimaAlteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Cliente (
-    id BIGINT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     login VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    dataUltimaAlteracao TIMESTAMP,
     rua VARCHAR(255),
     numero VARCHAR(50),
     complemento VARCHAR(255),
     bairro VARCHAR(255),
     cidade VARCHAR(255),
     estado VARCHAR(50),
-    cep VARCHAR(20)
+    cep VARCHAR(20),
+    dataUltimaAlteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

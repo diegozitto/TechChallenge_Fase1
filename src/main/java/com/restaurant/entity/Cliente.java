@@ -1,13 +1,12 @@
 package com.restaurant.entity;
 
 
+import com.restaurant.dto.CadastroUsuarioDTO;
+import com.restaurant.dto.TrocaSenhaDTO;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-
-import com.restaurant.dto.CadastroUsuarioDTO;
 
 @Entity(name = "Cliente")
 @Table(name = "Cliente")
@@ -18,19 +17,12 @@ import com.restaurant.dto.CadastroUsuarioDTO;
 public class Cliente extends Usuario {
 
 
-    public Cliente(CadastroUsuarioDTO dados) {
-        this.nome = dados.getNome();
-        this.email = dados.getEmail();
-        this.login = dados.getLogin();
-        this.senha = dados.getSenha();
-        this.endereco = new Endereco(dados.getEndereco().rua(),
-                                    dados.getEndereco().numero(),
-                                    dados.getEndereco().complemento(),
-                                    dados.getEndereco().bairro(),
-                                    dados.getEndereco().cidade(),
-                                    dados.getEndereco().estado(),
-                                    dados.getEndereco().cep());
-        this.dataUltimaAlteracao = LocalDateTime.now();
-    }    
+    public Cliente( CadastroUsuarioDTO dados) {
+        dados.getNome();
+        dados.getEmail();
+        dados.getLogin();
+        dados.getSenha();
+        dados.getEndereco();
+    } 
 
 }

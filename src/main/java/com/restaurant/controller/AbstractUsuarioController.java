@@ -1,6 +1,7 @@
 package com.restaurant.controller;
 
 import com.restaurant.entity.Usuario;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public abstract class AbstractUsuarioController<T extends Usuario> {
 
     @PutMapping("/{id}")
     public ResponseEntity<T> atualizar(@PathVariable Long id, @RequestBody T usuario) {
-        if (!getRepository().existsById(id)) {
+        if (getRepository().existsById(id) == false) {
             return ResponseEntity.notFound().build();
         }
         usuario.setId(id);
@@ -66,12 +67,12 @@ public abstract class AbstractUsuarioController<T extends Usuario> {
     @PatchMapping("/{id}/senha")
     public ResponseEntity<Void> trocarSenha(@PathVariable Long id, @RequestBody String novaSenha) {
         Optional<T> usuarioOpt = getRepository().findById(id);
-        if (usuarioOpt.isEmpty()) {
+        if (usuarioOpt.isEmpty() == true) {
             return ResponseEntity.notFound().build();
         }
         T usuario = usuarioOpt.get();
         usuario.setSenha(novaSenha);
         getRepository().save(usuario);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
